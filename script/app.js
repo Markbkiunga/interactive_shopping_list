@@ -1,3 +1,6 @@
+const shoppingList = ['Milk', 'Tea', 'Coffee'];
+const ol = selectElement('ol');
+
 function createAnElement(element) {
   return document.createElement(element);
 }
@@ -26,6 +29,21 @@ function createAListItem(item) {
   const list = createAnElement('li');
   addText(list, item);
   appendChild(list, ol);
+  listen(list, 'click', () => {
+    list.classList.toggle('checked');
+    addAttribute(list, 'toggle', 'checked');
+  });
+  listen(list, 'dblclick', () => {
+    addAttribute(list, 'contentEditable', true);
+    list.focus();
+  });
+  listen(list, 'keydown', (event) => {
+    if (event.key === 'Enter') {
+      //   event.preventDefault();
+      list.blur();
+    }
+  });
+  console.log(shoppingList);
 }
 
 function displayItems() {
@@ -37,8 +55,6 @@ function clearList() {
   shoppingList.length = 0;
   displayItems();
 }
-const shoppingList = ['Milk', 'Tea', 'Coffee'];
-const ol = selectElement('ol');
 
 listen(document, 'DOMContentLoaded', displayItems);
 
