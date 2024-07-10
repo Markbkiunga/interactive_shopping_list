@@ -20,6 +20,7 @@ function addItem(event) {
   event.preventDefault();
   shoppingList.push(event.target[0].value);
   displayItems();
+  event.target.reset();
 }
 function createAListItem(item) {
   const list = createAnElement('li');
@@ -27,14 +28,22 @@ function createAListItem(item) {
   appendChild(list, ol);
 }
 
-const shoppingList = ['Milk', 'Tea', 'Coffee'];
-const ol = selectElement('ol');
-
-listen(document, 'DOMContentLoaded', displayItems);
 function displayItems() {
   ol.innerHTML = '';
   shoppingList.forEach(createAListItem);
 }
 
+function clearList() {
+  shoppingList.length = 0;
+  displayItems();
+}
+const shoppingList = ['Milk', 'Tea', 'Coffee'];
+const ol = selectElement('ol');
+
+listen(document, 'DOMContentLoaded', displayItems);
+
 const form = selectElement('form');
 listen(form, 'submit', addItem);
+
+const deleteButton = selectElement('.delete');
+listen(deleteButton, 'click', clearList);
