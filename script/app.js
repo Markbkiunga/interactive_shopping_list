@@ -16,6 +16,10 @@ function listen(element, event, callback) {
 function addAttribute(element, attribute, content) {
   return element.setAttribute(attribute, content);
 }
+function addItem(event) {
+  event.preventDefault();
+  console.dir(event.target[0].value);
+}
 function createAListItem(item) {
   const list = createAnElement('li');
   addText(list, item);
@@ -23,10 +27,12 @@ function createAListItem(item) {
 }
 
 const shoppingList = ['Milk', 'Tea', 'Coffee'];
-// console.log(shoppingList);
 const ol = selectElement('ol');
 
 listen(document, 'DOMContentLoaded', displayItems);
 function displayItems() {
   shoppingList.forEach(createAListItem);
 }
+
+const form = selectElement('form');
+listen(form, 'submit', addItem);
